@@ -16,8 +16,15 @@ public class Produttore extends Thread {
 					i++;
 					this.coda.accoda(i);
 					System.out.println("Produttore: aggiunto elemento " + i);
+					this.coda.notify();
 				} else {
-					System.out.println("Produttore: coda piena");
+					try {
+						System.out.println("Produttore: coda piena. Attendo...");
+						this.coda.wait();
+					}
+					catch(InterruptedException ie) {
+						System.err.println("Qualcosa è andato storto. " + ie.getMessage());
+					}
 				}
 			}
 		}
