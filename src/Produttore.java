@@ -1,9 +1,11 @@
 
 public class Produttore extends Thread {
 	private Coda coda;
+	private String nome;
 
-	public Produttore(Coda coda) {
+	public Produttore(String nome, Coda coda) {
 		this.coda = coda;
+		this.nome = nome;
 	}
 
 	@Override
@@ -15,11 +17,11 @@ public class Produttore extends Thread {
 				if (!this.coda.isPiena()) {
 					i++;
 					this.coda.accoda(i);
-					System.out.println("Produttore: aggiunto elemento " + i);
-					this.coda.notify();
+					System.out.println("Produttore " + this.nome + ": aggiunto elemento " + i);
+					this.coda.notifyAll(); // notifica tutti i processi in attesa
 				} else {
 					try {
-						System.out.println("Produttore: coda piena. Attendo...");
+						System.out.println("Produttore " + this.nome + ": coda piena. Attendo...");
 						this.coda.wait();
 					}
 					catch(InterruptedException ie) {
