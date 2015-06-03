@@ -2,8 +2,12 @@
 public class Ese151 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Coda q = new Coda(5);
+		Produttore p = new Produttore(q);
+		Consumatore c = new Consumatore(q);
 
+		p.start();
+		c.start();
 	}
 
 }
